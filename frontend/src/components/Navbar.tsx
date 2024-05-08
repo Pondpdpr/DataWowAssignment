@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import historyIcon from "../../public/history.svg";
 import homeIcon from "../../public/home.svg";
@@ -9,10 +10,11 @@ import swapIcon from "../../public/swap.svg";
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div
-      className={`fixed top-0 left-0 z-40 w-[240px] h-screen py-10 bg-primaryBG ${roboto.className} border-r-2`}
+      className={`fixed top-0 left-0 z-40 w-[240px] h-screen py-10 bg-primaryBG ${roboto.className} border-r-2 transition-transform -translate-x-full sm:translate-x-0`}
       aria-disabled={isOpen}
     >
       <div className="p-6 h-[108px] text-[40px] font-[600] text-black">Admin</div>

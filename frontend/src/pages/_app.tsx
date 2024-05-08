@@ -9,7 +9,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Navbar />
-      <Component {...pageProps} className={`${roboto.className}`} />;
+      <div className={`${roboto.className} sm:ml-[240px]`}>
+        <Component {...pageProps} />;
+      </div>
     </>
   );
 }

@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Navbar />
       <div className={`${roboto.className} sm:ml-[240px]`}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </div>
     </>
   );

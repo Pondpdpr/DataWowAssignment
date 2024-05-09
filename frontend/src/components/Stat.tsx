@@ -4,9 +4,9 @@ import reservedIcon from "../../public/reserved.svg";
 import seatIcon from "../../public/seat.svg";
 
 export default function Stat() {
-  const statCSS = `basis-full py-6 flex flex-col gap-[10px] items-center bg-emerald-100 rounded-[8px]`;
+  const statCSS = `basis-full py-6 flex flex-col gap-[10px] items-center rounded-[8px]`;
   return (
-    <div className="flex flex-row w-full gap-[30px] h-auto">
+    <div className="flex flex-row w-full gap-[30px] h-auto text-white">
       <div className={`${statCSS} bg-[#0070A4]`}>
         <Image src={seatIcon} alt="seat" />
         <span className="text-[24px]">Total of Seats</span>

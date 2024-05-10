@@ -1,8 +1,7 @@
 import Image from "next/image";
 import deleteIcon from "../../public/delete.svg";
 
-export default function DeleteModal() {
-  const statCSS = `basis-full py-6 flex flex-col gap-[10px] items-center rounded-[8px]`;
+export default function DeleteModal({ onConfirm, onClose, concert }) {
   return (
     <div
       id="default-modal"
@@ -12,14 +11,23 @@ export default function DeleteModal() {
         <div className="flex flex-col gap-[24px] bg-secondaryBG rounded-[8px] items-center">
           <Image src={deleteIcon} alt="delete" />
           <span className="whitespace-pre-line text-center text-[20px] font-[700]">
-            {"Are you sure to delete?\n”Concert Name 2”"}
+            {`Are you sure to delete?\n”${concert.name}”`}
           </span>
         </div>
         <div className="w-full flex flex-row gap-[16px]">
-          <button className="w-full py[-12px] px-[16px] border-[1px] border-[#C4C4C4] rounded-[4px] bg-[#FFFFFF] text-[16px] text-[#262626] font-[500]">
+          <button
+            onClick={() => onClose()}
+            className="w-full py[-12px] px-[16px] border-[1px] border-[#C4C4C4] rounded-[4px] bg-[#FFFFFF] text-[16px] text-[#262626] font-[500]"
+          >
             Cancel
           </button>
-          <button className="w-full py-[12px] px-[16px] rounded-[4px] bg-[#E63946] text-[16px] text-[#FFFFFF] font-[500]">
+          <button
+            onClick={() => {
+              onClose();
+              onConfirm();
+            }}
+            className="w-full py-[12px] px-[16px] rounded-[4px] bg-[#E63946] text-[16px] text-[#FFFFFF] font-[500]"
+          >
             Yes, Delete
           </button>
         </div>

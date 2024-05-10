@@ -14,12 +14,16 @@ export default function Home() {
     totalSeat: 500,
     description: "",
   });
+  const [isConfirm, setConfirm] = useState(false);
+  const [deleteConcert, setDeleteConcert] = useState({});
   const mockConcert = [
     {
       id: 1,
+      name: "Concert 1",
     },
     {
       id: 2,
+      name: "Concert 2",
     },
   ];
 
@@ -39,6 +43,8 @@ export default function Home() {
       [fieldName]: fieldValue,
     }));
   };
+
+  const onConfirmDelete = () => {};
 
   const renderTabButton = () => {
     const tabButtonCSS = `pt-[10px] pb-[8px] px-[16px] text-[24px] border-b-[2px] border-b-primaryBG hover:font-[600] hover:text-[#1692EC] hover:border-b-[#1692EC]`;
@@ -77,7 +83,7 @@ export default function Home() {
           return (
             <div key={concert.id} className="flex flex-col gap-[32px] p-[40px] border-[1px] rounded-[8px]">
               <div className="flex flex-col gap-[24px]">
-                <span className="text-[32px] text-[#1692EC] font-[600]">Concert Name 1</span>
+                <span className="text-[32px] text-[#1692EC] font-[600]">{concert.name}</span>
                 <hr />
                 <div className="text-[24px]">{content}</div>
               </div>
@@ -86,7 +92,13 @@ export default function Home() {
                   <Image src={userIcon} alt="user" />
                   <span className="text-[24px]">500</span>
                 </div>
-                <button className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] hover:bg-[#fa8383] rounded-[4px]">
+                <button
+                  onClick={() => {
+                    setConfirm(true);
+                    setDeleteConcert(concert);
+                  }}
+                  className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] hover:bg-[#fa8383] rounded-[4px]"
+                >
                   <Image className="w-[24px] h-[24px]" src={trashIcon} alt="trash" />
                   <span className="text-white text-[24px]">Delete</span>
                 </button>
@@ -161,7 +173,9 @@ export default function Home() {
         <div className={`flex flex-row gap-[22px]`}>{renderTabButton()}</div>
         {tab === HOMEPAGETAB.OVERVIEW ? renderOverview() : renderCreate()}
       </div>
-      <DeleteModal />
+      {isConfirm && (
+        <DeleteModal onConfirm={() => onConfirmDelete()} onClose={() => setConfirm(false)} concert={deleteConcert} />
+      )}
     </main>
   );
 }

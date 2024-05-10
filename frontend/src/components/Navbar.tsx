@@ -20,29 +20,35 @@ export default function Navbar() {
       aria-disabled={isOpen}
     >
       <div>
-        <div className="p-6 h-[108px] text-[40px] font-[600] text-black">Admin</div>
+        <div className="p-6 h-[108px] text-[40px] font-[600] text-black">
+          {router.pathname === "/user" ? "User" : "Admin"}
+        </div>
         <div>
           <ul>
+            {router.pathname !== "/user" && (
+              <>
+                <li className="p-[8px] h-[84px] ">
+                  <Link href="/" className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}>
+                    <Image src={homeIcon} alt="home" />
+                    <span>Home</span>
+                  </Link>
+                </li>
+                <li className="p-[8px] h-[84px] ">
+                  <Link
+                    href="history"
+                    className={`${navbarContentCSS} ${router.pathname === "/history" && `bg-[#EAF5F9]`}`}
+                  >
+                    <Image src={historyIcon} alt="history" />
+                    <span>History</span>
+                  </Link>
+                </li>
+              </>
+            )}
             <li className="p-[8px] h-[84px] ">
-              <Link href="/" className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}>
-                <Image src={homeIcon} alt="home" />
-                <span>Home</span>
-              </Link>
-            </li>
-            <li className="p-[8px] h-[84px] ">
-              <Link
-                href="history"
-                className={`${navbarContentCSS} ${router.pathname === "/history" && `bg-[#EAF5F9]`}`}
-              >
-                <Image src={historyIcon} alt="history" />
-                <span>History</span>
-              </Link>
-            </li>
-            <li className="p-[8px] h-[84px] ">
-              <button className={navbarContentCSS}>
+              <Link href={router.pathname === "/user" ? "/" : "/user"} className={`${navbarContentCSS}`}>
                 <Image src={swapIcon} alt="swap" />
                 <span>Switch to user</span>
-              </button>
+              </Link>
             </li>
           </ul>
         </div>

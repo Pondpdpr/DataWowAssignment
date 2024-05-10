@@ -2,6 +2,7 @@ import DeleteModal from "@/components/deleteModal";
 import Stat from "@/components/Stat";
 import Image from "next/image";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { HOMEPAGETAB } from "../../public/enum/tab";
 import saveIcon from "../../public/save.svg";
 import trashIcon from "../../public/trash-2.svg";
@@ -44,7 +45,14 @@ export default function Home() {
     }));
   };
 
-  const onConfirmDelete = () => {};
+  const handleCreate = () => {
+    toast.success("Create Successfully");
+    setTab(HOMEPAGETAB.OVERVIEW);
+  };
+
+  const onConfirmDelete = () => {
+    toast.success("Delete Successfully");
+  };
 
   const renderTabButton = () => {
     const tabButtonCSS = `pt-[10px] pb-[8px] px-[16px] text-[24px] border-b-[2px] border-b-primaryBG hover:font-[600] hover:text-[#1692EC] hover:border-b-[#1692EC]`;
@@ -156,6 +164,7 @@ export default function Home() {
         </div>
 
         <button
+          onClick={() => handleCreate()}
           className="justify-center items-center w-[160px] mr-0 ml-auto py-[12px] px-[16px] flex flex-row gap-[10px] bg-[#1692EC] rounded-[4px]"
           type="submit"
         >

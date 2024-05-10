@@ -1,3 +1,4 @@
+import DeleteModal from "@/components/deleteModal";
 import Stat from "@/components/Stat";
 import Image from "next/image";
 import { useState } from "react";
@@ -160,6 +161,7 @@ export default function Home() {
         <div className={`flex flex-row gap-[22px]`}>{renderTabButton()}</div>
         {tab === HOMEPAGETAB.OVERVIEW ? renderOverview() : renderCreate()}
       </div>
+      <DeleteModal />
     </main>
   );
 }

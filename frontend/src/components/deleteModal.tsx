@@ -1,12 +1,11 @@
 import Image from "next/image";
 import deleteIcon from "../../public/delete.svg";
 
-export default function DeleteModal({ onConfirm, onClose, concert }) {
+type props = { onConfirm: () => void; onClose: () => void; concert: any };
+
+export default function DeleteModal({ onConfirm, onClose, concert }: props) {
   return (
-    <div
-      id="default-modal"
-      className="aboslute fixed w-full h-full left-0 right-0 top-0 bottom-0 z-50 flex justify-center items-center bg-[#00000066]/[0.4] font-IBM"
-    >
+    <div className="aboslute fixed w-full h-full left-0 right-0 top-0 bottom-0 z-50 flex justify-center items-center bg-[#00000066]/[0.4] font-IBM">
       <div className="w-[422px] flex flex-col gap-[24px] p-[24px] bg-secondaryBG rounded-[8px] items-center">
         <div className="flex flex-col gap-[24px] bg-secondaryBG rounded-[8px] items-center">
           <Image src={deleteIcon} alt="delete" />

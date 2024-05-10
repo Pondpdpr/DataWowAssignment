@@ -45,7 +45,7 @@ export default function Home() {
       <>
         <button
           className={`${tabButtonCSS} ${
-            tab === HOMEPAGETAB.OVERVIEW ? "font-[600] text-[#1692EC]  border-b-[#1692EB]" : "text-[#5C5C5C]"
+            tab === HOMEPAGETAB.OVERVIEW ? "font-[600] text-[#1692EC]  border-b-[#1692EA]" : "text-[#5C5C5C]"
           }`}
           onClick={() => {
             setTab(HOMEPAGETAB.OVERVIEW);
@@ -55,7 +55,7 @@ export default function Home() {
         </button>
         <button
           className={`${tabButtonCSS} ${
-            tab === HOMEPAGETAB.CREATE ? "font-[600] text-[#1692EC]  border-b-[#1692EB]" : "text-[#5C5C5C]"
+            tab === HOMEPAGETAB.CREATE ? "font-[600] text-[#1692EC]  border-b-[#1692EA]" : "text-[#5C5C5C]"
           }`}
           onClick={() => {
             setTab(HOMEPAGETAB.CREATE);

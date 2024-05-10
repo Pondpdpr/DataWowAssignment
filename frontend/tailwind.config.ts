@@ -12,6 +12,9 @@ const config: Config = {
         'primaryBG': '#FBFBFB',
         'secondaryBG': '#FFFFFF'
       },
+      fontFamily: {
+        "IBM": ["IBM Plex Sans Thai", "sans-serif"],
+      },
     },
   },
   plugins: [],

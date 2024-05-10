@@ -85,7 +85,7 @@ export default function Home() {
                   <Image src={userIcon} alt="user" />
                   <span className="text-[24px]">500</span>
                 </div>
-                <button className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] rounded-[4px]">
+                <button className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] hover:bg-[#fa8383] rounded-[4px]">
                   <Image className="w-[24px] h-[24px]" src={trashIcon} alt="trash" />
                   <span className="text-white text-[24px]">Delete</span>
                 </button>

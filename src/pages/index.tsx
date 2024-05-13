@@ -55,12 +55,14 @@ export default function Home() {
   };
 
   const renderTabButton = () => {
-    const tabButtonCSS = `pt-[10px] pb-[8px] px-[16px] text-[24px] border-b-[2px] border-b-primaryBG hover:font-[600] hover:text-[#1692EC] hover:border-b-[#1692EC]`;
+    const tabButtonCSS = `pt-[10px] pb-[8px] px-[16px] text-[24px] border-b-[2px] hover:font-[600] hover:text-[#1692EC]`;
     return (
       <>
         <button
           className={`${tabButtonCSS} ${
-            tab === HOMEPAGETAB.OVERVIEW ? "font-[600] text-[#1692EC]  border-b-[#1692EA]" : "text-[#5C5C5C]"
+            tab === HOMEPAGETAB.OVERVIEW
+              ? "font-[600] text-[#1692EC]  border-b-[#1692EC]"
+              : "text-[#5C5C5C] border-b-primaryBG"
           }`}
           onClick={() => {
             setTab(HOMEPAGETAB.OVERVIEW);
@@ -70,7 +72,9 @@ export default function Home() {
         </button>
         <button
           className={`${tabButtonCSS} ${
-            tab === HOMEPAGETAB.CREATE ? "font-[600] text-[#1692EC]  border-b-[#1692EA]" : "text-[#5C5C5C]"
+            tab === HOMEPAGETAB.CREATE
+              ? "font-[600] text-[#1692EC]  border-b-[#1692EC]"
+              : "text-[#5C5C5C] border-b-primaryBG"
           }`}
           onClick={() => {
             setTab(HOMEPAGETAB.CREATE);

@@ -1,4 +1,4 @@
-import DeleteModal from "@/components/deleteModal";
+import DeleteModal from "@/components/DeleteModal";
 import Stat from "@/components/Stat";
 import Image from "next/image";
 import { useState } from "react";

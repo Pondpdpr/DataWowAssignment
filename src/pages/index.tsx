@@ -1,4 +1,6 @@
+import deleteConcert from "@/api/deleteConcert";
 import getConcert from "@/api/getConcert";
+import login from "@/api/login";
 import DeleteModal from "@/components/DeleteModal";
 import Stat from "@/components/Stat";
 import Image from "next/image";
@@ -17,7 +19,7 @@ export default function Home() {
     description: "",
   });
   const [isConfirm, setConfirm] = useState(false);
-  const [deleteConcert, setDeleteConcert] = useState({});
+  const [selectedConcert, setSelectedConcert] = useState({ id: "" });
   const [concert, setConcert] = useState<any[]>([]);
 
   useEffect(() => {
@@ -50,8 +52,11 @@ export default function Home() {
     setTab(HOMEPAGETAB.OVERVIEW);
   };
 
-  const onConfirmDelete = () => {
+  const onConfirmDelete = async () => {
+    await deleteConcert(selectedConcert.id);
     toast.success("Delete Successfully");
+    const payload = await getConcert();
+    setConcert(payload);
   };
 
   const renderTabButton = () => {
@@ -105,7 +110,7 @@ export default function Home() {
                 <button
                   onClick={() => {
                     setConfirm(true);
-                    setDeleteConcert(oneConcert);
+                    setSelectedConcert(oneConcert);
                   }}
                   className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] hover:bg-[#fa8383] rounded-[4px]"
                 >
@@ -185,7 +190,7 @@ export default function Home() {
         {tab === HOMEPAGETAB.OVERVIEW ? renderOverview() : renderCreate()}
       </div>
       {isConfirm && (
-        <DeleteModal onConfirm={() => onConfirmDelete()} onClose={() => setConfirm(false)} concert={deleteConcert} />
+        <DeleteModal onConfirm={() => onConfirmDelete()} onClose={() => setConfirm(false)} concert={selectedConcert} />
       )}
     </main>
   );

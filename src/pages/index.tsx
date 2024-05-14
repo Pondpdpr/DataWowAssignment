@@ -1,3 +1,4 @@
+import createConcert from "@/api/createConcert";
 import deleteConcert from "@/api/deleteConcert";
 import getConcert from "@/api/getConcert";
 import login from "@/api/login";
@@ -47,9 +48,17 @@ export default function Home() {
     }));
   };
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
+    await createConcert(formData.concertName, formData.description, formData.totalSeat);
     toast.success("Create Successfully");
+    const payload = await getConcert();
+    setConcert(payload);
     setTab(HOMEPAGETAB.OVERVIEW);
+    setFormData({
+      concertName: "",
+      totalSeat: 500,
+      description: "",
+    });
   };
 
   const onConfirmDelete = async () => {
@@ -86,6 +95,18 @@ export default function Home() {
           }}
         >
           Create
+        </button>
+        <button
+          className={`${tabButtonCSS} ${
+            tab === HOMEPAGETAB.CREATE
+              ? "font-[600] text-[#1692EC]  border-b-[#1692EC]"
+              : "text-[#5C5C5C] border-b-primaryBG"
+          }`}
+          onClick={() => {
+            login("pond@pond.com", "password");
+          }}
+        >
+          login
         </button>
       </>
     );

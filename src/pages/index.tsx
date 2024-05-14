@@ -1,7 +1,8 @@
+import getConcert from "@/api/getConcert";
 import DeleteModal from "@/components/DeleteModal";
 import Stat from "@/components/Stat";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HOMEPAGETAB } from "../../public/enum/tab";
 import saveIcon from "../../public/save.svg";
@@ -17,16 +18,15 @@ export default function Home() {
   });
   const [isConfirm, setConfirm] = useState(false);
   const [deleteConcert, setDeleteConcert] = useState({});
-  const mockConcert = [
-    {
-      id: 1,
-      name: "Concert 1",
-    },
-    {
-      id: 2,
-      name: "Concert 2",
-    },
-  ];
+  const [concert, setConcert] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const payload = await getConcert();
+      setConcert(payload);
+    };
+    fetchData();
+  }, []);
 
   const handleInput = (e: any) => {
     const fieldName = e.target.name;
@@ -87,17 +87,15 @@ export default function Home() {
   };
 
   const renderOverview = () => {
-    const content =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     return (
       <div className="flex flex-col gap-[48px]">
-        {mockConcert.map((concert) => {
+        {concert.map((oneConcert) => {
           return (
-            <div key={concert.id} className="flex flex-col gap-[32px] p-[40px] border-[1px] rounded-[8px]">
+            <div key={oneConcert.id} className="flex flex-col gap-[32px] p-[40px] border-[1px] rounded-[8px]">
               <div className="flex flex-col gap-[24px]">
-                <span className="text-[32px] text-[#1692EC] font-[600]">{concert.name}</span>
+                <span className="text-[32px] text-[#1692EC] font-[600]">{oneConcert.name}</span>
                 <hr />
-                <div className="text-[24px]">{content}</div>
+                <div className="text-[24px]">{oneConcert.description}</div>
               </div>
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center">
@@ -107,7 +105,7 @@ export default function Home() {
                 <button
                   onClick={() => {
                     setConfirm(true);
-                    setDeleteConcert(concert);
+                    setDeleteConcert(oneConcert);
                   }}
                   className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] hover:bg-[#fa8383] rounded-[4px]"
                 >

@@ -1,5 +1,7 @@
+import cancel from "@/api/cancel";
 import getConcert from "@/api/getConcert";
 import getReserved from "@/api/getReserved";
+import reserve from "@/api/reserve";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CONCERTSTATUS } from "../../../public/enum/concertStatus";
@@ -20,27 +22,40 @@ export default function User() {
   const [concert, setConcert] = useState([]);
   const [reservation, setReservation] = useState([]);
 
+  const fetchData = async () => {
+    const concerts = await getConcert();
+    const reserved = (await getReserved()).map((reservation: any) => ({
+      concertId: reservation.concertId,
+      id: reservation.id,
+    }));
+    setReservation(reserved);
+    setConcert(
+      concerts.map((concert: any) => {
+        concert.status = "available";
+        if (reserved.find((reservation: any) => reservation.concertId === concert.id)) {
+          concert.status = "reserved";
+          concert.reservation = reserved.find((reservation: any) => reservation.concertId === concert.id).id;
+        } else if (concert.limit <= parseInt(concert.reserved)) {
+          concert.status = "full";
+        }
+        return concert;
+      })
+    );
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const concerts = await getConcert();
-      const reserved = (await getReserved()).map((reservation: any) => reservation.concertId);
-      console.log(reserved);
-      setReservation(reserved);
-      setConcert(
-        concerts.map((concert: any) => {
-          concert.status = "available";
-          if (reserved.includes(concert.id)) {
-            concert.status = "reserved";
-          } else if (concert.limit <= parseInt(concert.reserved)) {
-            concert.status = "full";
-          }
-          console.log(concert);
-          return concert;
-        })
-      );
-    };
     fetchData();
   }, []);
+
+  const handleReserve = async (concertId: string) => {
+    await reserve(concertId);
+    fetchData();
+  };
+
+  const handleCancel = async (reservationId: string) => {
+    await cancel(reservationId);
+    fetchData();
+  };
 
   const renderConcerts = () => {
     return (
@@ -63,6 +78,11 @@ export default function User() {
                   className={`w-[160px] py-[12px] px-[16px] items-center ${
                     (buttonColor as any)[oneConcert.status]
                   } rounded-[4px]`}
+                  onClick={() =>
+                    oneConcert.status === CONCERTSTATUS.AVAILABLE
+                      ? handleReserve(oneConcert.id)
+                      : handleCancel(oneConcert.reservation)
+                  }
                   disabled={oneConcert.status === CONCERTSTATUS.FULL}
                 >
                   <span className="text-white text-[24px]">{(buttonDisplay as any)[oneConcert.status]}</span>

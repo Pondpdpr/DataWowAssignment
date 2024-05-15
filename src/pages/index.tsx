@@ -115,7 +115,7 @@ export default function Home() {
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center">
                   <Image src={userIcon} alt="user" />
-                  <span className="text-[24px]">500</span>
+                  <span className="text-[24px]">{oneConcert.limit}</span>
                 </div>
                 <button
                   onClick={() => {

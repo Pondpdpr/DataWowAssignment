@@ -64,18 +64,20 @@ export default function User() {
           return (
             <div key={oneConcert.id} className="flex flex-col w-full gap-[32px] p-[40px] border-[1px] rounded-[8px]">
               <div className="flex flex-col gap-[24px]">
-                <span className="text-[32px] text-[#1692EC] font-[600]">{oneConcert.name}</span>
+                <span className="text-wrap text-ellipsis overflow-hidden text-[24px] lg:text-[32px] text-[#1692EC] font-[600]">
+                  {oneConcert.name}
+                </span>
                 <hr />
-                <div className="text-[24px]">{oneConcert.description}</div>
+                <div className="text-[20px] lg:text-[24px]">{oneConcert.description}</div>
               </div>
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center">
-                  <Image src={userIcon} alt="user" />
-                  <span className="text-[24px]">{oneConcert.limit}</span>
+                  <Image className="w-[24px] h-[24px] sm:w-[32px] sm:h-[32px]" src={userIcon} alt="user" />
+                  <span className="text-[16px] sm:text-[24px]">{oneConcert.limit}</span>
                 </div>
 
                 <button
-                  className={`w-[160px] py-[12px] px-[16px] items-center ${
+                  className={`w-[80px] sm:w-[160px] py-[12px] sm:px-[16px] items-center ${
                     (buttonColor as any)[oneConcert.status]
                   } rounded-[4px]`}
                   onClick={() =>
@@ -85,7 +87,9 @@ export default function User() {
                   }
                   disabled={oneConcert.status === CONCERTSTATUS.FULL}
                 >
-                  <span className="text-white text-[24px]">{(buttonDisplay as any)[oneConcert.status]}</span>
+                  <span className="text-white text-[16px] sm:text-[24px]">
+                    {(buttonDisplay as any)[oneConcert.status]}
+                  </span>
                 </button>
               </div>
             </div>

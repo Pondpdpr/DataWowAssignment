@@ -7,7 +7,6 @@ const cancel = async (reservationId: string) => {
     },
   });
   const payload = await response.json();
-  console.log(payload);
 };
 
 export default cancel;

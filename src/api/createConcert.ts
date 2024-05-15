@@ -4,7 +4,6 @@ const createConcert = async (concertName: string, description: string, limit: nu
     description,
     limit,
   });
-  console.log(body);
   const response = await fetch(`http://localhost:3001/concert`, {
     method: "POST",
     headers: {

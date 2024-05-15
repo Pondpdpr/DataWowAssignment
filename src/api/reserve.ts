@@ -7,7 +7,6 @@ const reserve = async (concertId: string) => {
     },
   });
   const payload = await response.json();
-  console.log(payload);
 };
 
 export default reserve;

@@ -68,7 +68,7 @@ export default function Home() {
   };
 
   const renderTabButton = () => {
-    const tabButtonCSS = `pt-[10px] pb-[8px] px-[16px] text-[24px] border-b-[2px] hover:font-[600] hover:text-[#1692EC]`;
+    const tabButtonCSS = `pt-[10px] pb-[8px] px-[16px] text-[22px] lg:text-[24px] border-b-[2px] hover:font-[600] hover:text-[#1692EC]`;
     return (
       <>
         <button
@@ -106,9 +106,11 @@ export default function Home() {
           return (
             <div key={oneConcert.id} className="flex flex-col gap-[32px] p-[40px] border-[1px] rounded-[8px]">
               <div className="flex flex-col gap-[24px]">
-                <span className="text-[32px] text-[#1692EC] font-[600]">{oneConcert.name}</span>
+                <span className="text-wrap text-ellipsis overflow-hidden text-[24px] lg:text-[32px] text-[#1692EC] font-[600]">
+                  {oneConcert.name}
+                </span>
                 <hr />
-                <div className="text-[24px]">{oneConcert.description}</div>
+                <div className="text-[20px] lg:text-[24px]">{oneConcert.description}</div>
               </div>
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center">
@@ -123,7 +125,7 @@ export default function Home() {
                   className="py-[12px] px-[16px] flex flex-row gap-[10px] items-center bg-[#E84E4E] hover:bg-[#fa8383] rounded-[4px]"
                 >
                   <Image className="w-[24px] h-[24px]" src={trashIcon} alt="trash" />
-                  <span className="text-white text-[24px]">Delete</span>
+                  <span className="text-white text-[24px] hidden sm:block">Delete</span>
                 </button>
               </div>
             </div>
@@ -137,13 +139,13 @@ export default function Home() {
     return (
       <div className="w-full h-full flex flex-col gap-[32px] p-[40px] border-[1px] border-[#C2C2C2] rounded-[8px]">
         <div className="flex flex-col gap-[24px]">
-          <h1 className="text-[40px] text-[#1692EC] font-[600]">Create</h1>
+          <h1 className="text-[32px] sm:text-[40px] text-[#1692EC] font-[600]">Create</h1>
           <hr />
-          <div className="flex flex-row gap-[24px]">
+          <div className="flex flex-row flex-wrap sm:flex-nowrap gap-[24px]">
             <div className="flex flex-col gap-[16px] w-full">
-              <label className="text-[24px] font-[400]">Concert name</label>
+              <label className="text-[20px] sm:text-[24px] font-[400]">Concert name</label>
               <input
-                className="py-[12px] px-[16px] border-[1px] border-[#5C5C5C] rounded-[4px] focus:outline-none focus:border-[#1692EC]"
+                className="text-[12px] sm:text-[16px] py-[12px] px-[16px] border-[1px] border-[#5C5C5C] rounded-[4px] focus:outline-none focus:border-[#1692EC]"
                 type="text"
                 name="concertName"
                 onChange={handleInput}
@@ -153,10 +155,10 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col gap-[16px] w-full">
-              <label className="text-[24px] font-[400]">Total of seat</label>
+              <label className="text-[20px] sm:text-[24px] font-[400]">Total of seat</label>
               <div className="w-full relative">
                 <input
-                  className="w-full py-[12px] px-[16px] border-[1px] border-[#5C5C5C] rounded-[4px] focus:outline-none focus:border-[#1692EC]"
+                  className="text-[12px] sm:text-[16px] w-full py-[12px] px-[16px] border-[1px] border-[#5C5C5C] rounded-[4px] focus:outline-none focus:border-[#1692EC]"
                   type="number"
                   onChange={handleInput}
                   value={formData.totalSeat}
@@ -167,9 +169,9 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col gap-[16px]">
-            <label className="text-[24px] font-[400]">Description</label>
+            <label className="text-[20px] sm:text-[24px] font-[400]">Description</label>
             <textarea
-              className="py-[12px] px-[16px] border-[1px] border-[#5C5C5C] rounded-[4px] focus:outline-none focus:border-[#1692EC]"
+              className="text-[12px] sm:text-[16px] py-[12px] px-[16px] border-[1px] border-[#5C5C5C] rounded-[4px] focus:outline-none focus:border-[#1692EC]"
               name="description"
               onChange={handleInput}
               value={formData.description}
@@ -180,11 +182,11 @@ export default function Home() {
 
         <button
           onClick={() => handleCreate()}
-          className="justify-center items-center w-[160px] mr-0 ml-auto py-[12px] px-[16px] flex flex-row gap-[10px] bg-[#1692EC] rounded-[4px]"
+          className="justify-center items-center w-[120px] sm:w-[160px] mr-0 ml-auto py-[12px] px-[16px] flex flex-row gap-[10px] bg-[#1692EC] rounded-[4px]"
           type="submit"
         >
           <Image className="w-[24px] h-[24px]" src={saveIcon} alt="save" />
-          <span className="text-white text-[24px]">Save</span>
+          <span className="text-white text-[20px] sm:text-[24px]">Save</span>
         </button>
       </div>
     );

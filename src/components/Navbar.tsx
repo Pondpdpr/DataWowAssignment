@@ -10,10 +10,9 @@ import swapIcon from "../../public/swap.svg";
 
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 export default function Navbar() {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
   const router = useRouter();
   const navbarContentCSS = `flex flex-row w-full gap-[10px] py-[16px] px-[8px] items-center text-[24px] text-black rounded-[8px] hover:bg-[#EAF5F9] transition-colors`;
-  console.log(isOpen);
   return (
     <>
       <button
@@ -23,11 +22,9 @@ export default function Navbar() {
         } inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-[#e2e2e2]`}
         onFocus={() => {
           setOpen(true);
-          console.log(isOpen);
         }}
         onBlur={() => {
           setOpen(false);
-          console.log(isOpen);
         }}
       >
         <span className="sr-only">Open sidebar</span>

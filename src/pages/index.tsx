@@ -1,7 +1,6 @@
 import createConcert from "@/api/createConcert";
 import deleteConcert from "@/api/deleteConcert";
 import getConcert from "@/api/getConcert";
-import login from "@/api/login";
 import DeleteModal from "@/components/DeleteModal";
 import Stat from "@/components/Stat";
 import Image from "next/image";
@@ -95,18 +94,6 @@ export default function Home() {
           }}
         >
           Create
-        </button>
-        <button
-          className={`${tabButtonCSS} ${
-            tab === HOMEPAGETAB.CREATE
-              ? "font-[600] text-[#1692EC]  border-b-[#1692EC]"
-              : "text-[#5C5C5C] border-b-primaryBG"
-          }`}
-          onClick={() => {
-            login("pond@pond.com", "password");
-          }}
-        >
-          login
         </button>
       </>
     );

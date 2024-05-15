@@ -59,7 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Notifications />
       <Navbar />
-      <div className={`${roboto.className} sm:ml-[240px]`}>
+      <div className={`${roboto.className} lg:ml-[240px]`}>
         <Component {...pageProps} />
       </div>
     </>

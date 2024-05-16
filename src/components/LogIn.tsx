@@ -21,6 +21,7 @@ export default function LogIn() {
       redirect: false,
     });
     if (!res?.ok) {
+      console.log(res);
       alert("login failed");
     } else {
       router.push("/user");

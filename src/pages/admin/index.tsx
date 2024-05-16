@@ -1,5 +1,6 @@
 import DeleteModal from "@/components/DeleteModal";
 import Stat from "@/components/Stat";
+import { BACKEND_URL } from "@/lib/constant";
 import useRequireAuth from "@/lib/useRuquireAuth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -25,7 +26,7 @@ export default function AdminPage() {
   const [stat, setStat] = useState({ seats: 0, reserved: 0, canceled: 0 });
 
   const fetchData = async () => {
-    const concertResponse = await fetch(`http://localhost:3001/concert`, {
+    const concertResponse = await fetch(`${BACKEND_URL}/concert`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +37,7 @@ export default function AdminPage() {
       setConcert(await concertResponse.json());
     }
 
-    const statResponse = await fetch(`http://localhost:3001/concert/stat`, {
+    const statResponse = await fetch(`${BACKEND_URL}/concert/stat`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export default function AdminPage() {
   };
 
   const deleteConcert = async (concertId: string) => {
-    const response = await fetch(`http://localhost:3001/concert/${concertId}`, {
+    const response = await fetch(`${BACKEND_URL}/concert/${concertId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +66,7 @@ export default function AdminPage() {
       description,
       limit,
     });
-    const response = await fetch(`http://localhost:3001/concert`, {
+    const response = await fetch(`${BACKEND_URL}/concert`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

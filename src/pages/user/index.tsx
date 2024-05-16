@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "@/lib/constant";
 import useRequireAuth from "@/lib/useRuquireAuth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -22,7 +23,7 @@ export default function UserPage() {
   const [concert, setConcert] = useState([]);
 
   const getConcert = async () => {
-    const response = await fetch(`http://localhost:3001/concert`, {
+    const response = await fetch(`${BACKEND_URL}/concert`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +34,7 @@ export default function UserPage() {
   };
 
   const getReserved = async () => {
-    const response = await fetch(`http://localhost:3001/reservation`, {
+    const response = await fetch(`${BACKEND_URL}/reservation`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +45,7 @@ export default function UserPage() {
   };
 
   const reserve = async (concertId: string) => {
-    const response = await fetch(`http://localhost:3001/reservation/${concertId}`, {
+    const response = await fetch(`${BACKEND_URL}/reservation/${concertId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +56,7 @@ export default function UserPage() {
   };
 
   const cancel = async (reservationId: string) => {
-    const response = await fetch(`http://localhost:3001/reservation/cancel/${reservationId}`, {
+    const response = await fetch(`${BACKEND_URL}/reservation/cancel/${reservationId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

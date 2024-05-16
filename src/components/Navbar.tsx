@@ -1,3 +1,4 @@
+import { signOut, useSession } from "next-auth/react";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import swapIcon from "../../public/swap.svg";
 
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 export default function Navbar() {
+  const { data: session } = useSession();
   const [isOpen, setOpen] = useState(false);
   const router = useRouter();
   const navbarContentCSS = `flex flex-row w-full gap-[10px] py-[16px] px-[8px] items-center text-[24px] text-black rounded-[8px] hover:bg-[#EAF5F9] transition-colors`;
@@ -71,10 +73,24 @@ export default function Navbar() {
             </ul>
           </div>
         </div>
-        <button className="flex flex-row w-auto gap-[10px] m-[8px] py-[16px] px-[8px] items-center text-[24px] text-black rounded-[8px] hover:bg-[#EAF5F9]">
-          <Image src={logoutIcon} alt="logout" />
-          <span>Logout</span>
-        </button>
+
+        {session?.user ? (
+          <button
+            className="flex flex-row w-auto gap-[10px] m-[8px] py-[16px] px-[8px] items-center text-[24px] text-black rounded-[8px] hover:bg-[#EAF5F9]"
+            onClick={() => signOut()}
+          >
+            <Image src={logoutIcon} alt="logout" />
+            <span>Logout</span>
+          </button>
+        ) : (
+          <Link
+            href="/auth"
+            className="flex flex-row w-auto gap-[10px] m-[8px] py-[16px] px-[8px] items-center text-[24px] text-black rounded-[8px] hover:bg-[#EAF5F9]"
+          >
+            <Image src={logoutIcon} alt="logout" />
+            <span>Login</span>
+          </Link>
+        )}
       </div>
     </>
   );

@@ -1,9 +1,10 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LogIn() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,7 +23,7 @@ export default function LogIn() {
     if (!res?.ok) {
       alert("login failed");
     } else {
-      router.push("/");
+      router.push("/user");
     }
   };
 

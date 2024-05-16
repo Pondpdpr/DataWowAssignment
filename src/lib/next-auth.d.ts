@@ -5,6 +5,7 @@ declare module "next-auth" {
     user: {
       email: string;
       name: string;
+      role: string;
     };
     access_token: string;
   }
@@ -17,6 +18,7 @@ declare module "next-auth/jwt" {
     user: {
       email: string;
       name: string;
+      role: string;
     };
     access_token: string;
   }

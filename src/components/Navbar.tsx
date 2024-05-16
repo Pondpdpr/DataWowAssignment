@@ -45,7 +45,7 @@ export default function Navbar() {
           </div>
           <div>
             <ul>
-              {router.pathname !== "/user" && (
+              {router.pathname.includes("admin") && session?.user.role === "admin" && (
                 <>
                   <li className="p-[8px] h-[84px] ">
                     <Link href="/admin" className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}>
@@ -55,7 +55,7 @@ export default function Navbar() {
                   </li>
                   <li className="p-[8px] h-[84px] ">
                     <Link
-                      href="history"
+                      href={router.pathname + "/history"}
                       className={`${navbarContentCSS} ${router.pathname === "/history" && `bg-[#EAF5F9]`}`}
                     >
                       <Image src={historyIcon} alt="history" />
@@ -64,12 +64,14 @@ export default function Navbar() {
                   </li>
                 </>
               )}
-              <li className="p-[8px] h-[84px] ">
-                <Link href={router.pathname === "/concert" ? "/admin" : "/concert"} className={`${navbarContentCSS}`}>
-                  <Image src={swapIcon} alt="swap" />
-                  <span>Switch to user</span>
-                </Link>
-              </li>
+              {session?.user.role === "admin" && (
+                <li className="p-[8px] h-[84px]">
+                  <Link href={router.pathname.includes("user") ? "/admin" : "/user"} className={`${navbarContentCSS}`}>
+                    <Image src={swapIcon} alt="swap" />
+                    <span>Switch to {router.pathname.includes("user") ? "admin" : "user"}</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

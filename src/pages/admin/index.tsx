@@ -1,5 +1,6 @@
 import DeleteModal from "@/components/DeleteModal";
 import Stat from "@/components/Stat";
+import useRequireAuth from "@/lib/useRuquireAuth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ import trashIcon from "../../../public/trash-2.svg";
 import userIcon from "../../../public/user.svg";
 
 export default function AdminPage() {
+  useRequireAuth("admin");
   const { data: session } = useSession();
   const [tab, setTab] = useState(HOMEPAGETAB.OVERVIEW);
   const [formData, setFormData] = useState({

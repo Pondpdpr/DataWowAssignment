@@ -1,3 +1,4 @@
+import useRequireAuth from "@/lib/useRuquireAuth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -15,7 +16,8 @@ const buttonColor = {
   full: "bg-[#C2C2C2]",
 };
 
-export default function ConcertPage() {
+export default function UserPage() {
+  useRequireAuth();
   const { data: session } = useSession();
   const [concert, setConcert] = useState([]);
 

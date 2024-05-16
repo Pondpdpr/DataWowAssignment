@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
@@ -54,14 +55,14 @@ const Notifications = () => {
   );
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <>
+    <SessionProvider session={session}>
       <Notifications />
       <Navbar />
       <div className={`${roboto.className} lg:ml-[240px]`}>
         <Component {...pageProps} />
       </div>
-    </>
+    </SessionProvider>
   );
 }

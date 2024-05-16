@@ -28,7 +28,7 @@ export default function Stat() {
       }
     };
     fetchData();
-  }, []);
+  }, [session]);
 
   const statCSS = `basis-full py-6 flex flex-row md:flex-col gap-[10px] items-center rounded-[8px] px-[16px]`;
   return (

@@ -16,23 +16,23 @@ export default function Stat() {
     fetchData();
   }, []);
 
-  const statCSS = `basis-full py-6 flex flex-col gap-[10px] items-center rounded-[8px]`;
+  const statCSS = `basis-full py-6 flex flex-row md:flex-col gap-[10px] items-center rounded-[8px] px-[16px]`;
   return (
-    <div className="flex flex-row w-full gap-[30px] h-auto text-white">
+    <div className="flex flex-col md:flex-row w-full gap-[20px] md:gap-[30px] h-auto text-white">
       <div className={`${statCSS} bg-[#0070A4]`}>
-        <Image className="w-[35px] h-[35px] sm:w-[40px] sm:h-[40px]" src={seatIcon} alt="seat" />
-        <span className="text-[12px] sm:text-[24px] text-center h-[36px] sm:h-full">Total of Seats</span>
-        <span className="text-[28px] sm:text-[36px] lg:text-[60px]">{data.seats}</span>
+        <Image src={seatIcon} alt="seat" />
+        <span className="text-[16px] sm:text-[24px] md:text-center sm:h-full w-full">Total of Seats</span>
+        <span className="text-[32px] lg:text-[60px]">{data.seats}</span>
       </div>
       <div className={`${statCSS} bg-[#00A58B]`}>
-        <Image className="w-[35px] h-[35px] sm:w-[40px] sm:h-[40px]" src={reservedIcon} alt="reserved" />
-        <span className="text-[12px] sm:text-[24px] h-[36px] sm:h-full">Reserve</span>
-        <span className="text-[28px] sm:text-[36px] lg:text-[60px]">{data.reserved}</span>
+        <Image src={reservedIcon} alt="reserved" />
+        <span className="text-[16px] sm:text-[24px] md:text-center sm:h-full w-full">Reserve</span>
+        <span className="text-[32px] lg:text-[60px]">{data.reserved}</span>
       </div>
       <div className={`${statCSS} bg-[#E84E4E]`}>
-        <Image className="w-[35px] h-[35px] sm:w-[40px] sm:h-[40px]" src={cancelIcon} alt="cancel" />
-        <span className="text-[12px] sm:text-[24px] h-[36px] sm:h-full">Cancel</span>
-        <span className="text-[28px] sm:text-[36px] lg:text-[60px]">{data.canceled}</span>
+        <Image src={cancelIcon} alt="cancel" />
+        <span className="text-[16px] sm:text-[24px] md:text-center sm:h-full w-full">Cancel</span>
+        <span className="text-[32px] lg:text-[60px]">{data.canceled}</span>
       </div>
     </div>
   );

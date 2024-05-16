@@ -22,18 +22,29 @@ export default function AdminPage() {
   const [isConfirm, setConfirm] = useState(false);
   const [selectedConcert, setSelectedConcert] = useState({ id: "" });
   const [concert, setConcert] = useState<any[]>([]);
+  const [stat, setStat] = useState({ seats: 0, reserved: 0, canceled: 0 });
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:3001/concert`, {
+    const concertResponse = await fetch(`http://localhost:3001/concert`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + session?.access_token,
       },
     });
-    const payload = await response.json();
-    if (response.ok) {
-      setConcert(payload);
+    if (concertResponse.ok) {
+      setConcert(await concertResponse.json());
+    }
+
+    const statResponse = await fetch(`http://localhost:3001/concert/stat`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + session?.access_token,
+      },
+    });
+    if (statResponse.ok) {
+      setStat(await statResponse.json());
     }
   };
 
@@ -243,7 +254,7 @@ export default function AdminPage() {
 
   return (
     <main className={`flex flex-col h-full gap-[48px] min-h-screen items-center py-16 px-10 bg-primaryBG`}>
-      <Stat />
+      <Stat {...stat} />
       <div className="w-full h-full flex flex-col gap-[22px]">
         <div className={`flex flex-row gap-[22px]`}>{renderTabButton()}</div>
         {tab === HOMEPAGETAB.OVERVIEW ? renderOverview() : renderCreate()}

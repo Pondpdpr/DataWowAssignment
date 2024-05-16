@@ -48,7 +48,7 @@ export default function Navbar() {
               {router.pathname !== "/user" && (
                 <>
                   <li className="p-[8px] h-[84px] ">
-                    <Link href="/" className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}>
+                    <Link href="/admin" className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}>
                       <Image src={homeIcon} alt="home" />
                       <span>Home</span>
                     </Link>
@@ -65,7 +65,7 @@ export default function Navbar() {
                 </>
               )}
               <li className="p-[8px] h-[84px] ">
-                <Link href={router.pathname === "/user" ? "/" : "/user"} className={`${navbarContentCSS}`}>
+                <Link href={router.pathname === "/concert" ? "/admin" : "/concert"} className={`${navbarContentCSS}`}>
                   <Image src={swapIcon} alt="swap" />
                   <span>Switch to user</span>
                 </Link>

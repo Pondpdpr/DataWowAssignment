@@ -1,7 +1,4 @@
-import cancel from "@/api/cancel";
-import getConcert from "@/api/getConcert";
-import getReserved from "@/api/getReserved";
-import reserve from "@/api/reserve";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CONCERTSTATUS } from "../../../public/enum/concertStatus";
@@ -18,42 +15,95 @@ const buttonColor = {
   full: "bg-[#C2C2C2]",
 };
 
-export default function User() {
+export default function ConcertPage() {
+  const { data: session } = useSession();
   const [concert, setConcert] = useState([]);
-  const [reservation, setReservation] = useState([]);
+
+  const getConcert = async () => {
+    const response = await fetch(`http://localhost:3001/concert`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + session?.access_token,
+      },
+    });
+    return response;
+  };
+
+  const getReserved = async () => {
+    const response = await fetch(`http://localhost:3001/reservation`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + session?.access_token,
+      },
+    });
+    return response;
+  };
+
+  const reserve = async (concertId: string) => {
+    const response = await fetch(`http://localhost:3001/reservation/${concertId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + session?.access_token,
+      },
+    });
+    return response;
+  };
+
+  const cancel = async (reservationId: string) => {
+    const response = await fetch(`http://localhost:3001/reservation/cancel/${reservationId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + session?.access_token,
+      },
+    });
+    return response;
+  };
 
   const fetchData = async () => {
-    const concerts = await getConcert();
-    const reserved = (await getReserved()).map((reservation: any) => ({
-      concertId: reservation.concertId,
-      id: reservation.id,
-    }));
-    setReservation(reserved);
-    setConcert(
-      concerts.map((concert: any) => {
-        concert.status = "available";
-        if (reserved.find((reservation: any) => reservation.concertId === concert.id)) {
-          concert.status = "reserved";
-          concert.reservation = reserved.find((reservation: any) => reservation.concertId === concert.id).id;
-        } else if (concert.limit <= parseInt(concert.reserved)) {
-          concert.status = "full";
-        }
-        return concert;
-      })
-    );
+    const concertRes = await getConcert();
+    const reservedRes = await getReserved();
+    if (concertRes?.ok && reservedRes?.ok) {
+      const concerts = await concertRes.json();
+      const reserved = (await reservedRes.json()).map((reservation: any) => ({
+        concertId: reservation.concertId,
+        id: reservation.id,
+      }));
+      setConcert(
+        concerts.map((concert: any) => {
+          concert.status = "available";
+          if (reserved.find((reservation: any) => reservation.concertId === concert.id)) {
+            concert.status = "reserved";
+            concert.reservation = reserved.find((reservation: any) => reservation.concertId === concert.id).id;
+          } else if (concert.limit <= parseInt(concert.reserved)) {
+            concert.status = "full";
+          }
+          return concert;
+        })
+      );
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [session]);
 
   const handleReserve = async (concertId: string) => {
-    await reserve(concertId);
+    const res = await reserve(concertId);
+    if (!res?.ok) {
+      alert("reservation failed");
+    }
     fetchData();
   };
 
   const handleCancel = async (reservationId: string) => {
-    await cancel(reservationId);
+    const res = await cancel(reservationId);
+    if (!res?.ok) {
+      alert("cancelation failed");
+    }
     fetchData();
   };
 

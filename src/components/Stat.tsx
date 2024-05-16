@@ -1,4 +1,4 @@
-import getConcertStat from "@/api/getConcertStat";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import cancelIcon from "../../public/cancel.svg";
@@ -6,12 +6,26 @@ import reservedIcon from "../../public/reserved.svg";
 import seatIcon from "../../public/seat.svg";
 
 export default function Stat() {
+  const { data: session } = useSession();
   const [data, setData] = useState({ seats: 0, reserved: 0, canceled: 0 });
+
+  const getConcertStat = async () => {
+    const response = await fetch(`http://localhost:3001/concert/stat`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("access_token"),
+      },
+    });
+    return response;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      const payload = await getConcertStat();
-      setData(payload);
+      const res = await getConcertStat();
+      if (res?.ok) {
+        setData(await res.json());
+      }
     };
     fetchData();
   }, []);

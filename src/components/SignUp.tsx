@@ -1,4 +1,3 @@
-import signup from "@/api/signup";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -9,6 +8,22 @@ export default function SignUp(props: any) {
     email: "",
     password: "",
   });
+
+  const signup = async (name: string, email: string, password: number | string) => {
+    const body = JSON.stringify({
+      name,
+      email,
+      password,
+    });
+    const response = await fetch(`http://localhost:3001/auth/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    });
+    return response;
+  };
 
   const handleSignup = async () => {
     if (!formData.name || !formData.email || !formData.password) {

@@ -48,6 +48,10 @@ export default function Home() {
   };
 
   const handleCreate = async () => {
+    if (!formData.concertName || !formData.description) {
+      alert("please fill all fields");
+      return;
+    }
     await createConcert(formData.concertName, formData.description, formData.totalSeat);
     toast.success("Create Successfully");
     const payload = await getConcert();

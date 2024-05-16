@@ -15,6 +15,10 @@ export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const router = useRouter();
   const navbarContentCSS = `flex flex-row w-full gap-[10px] py-[16px] px-[8px] items-center text-[24px] text-black rounded-[8px] hover:bg-[#EAF5F9] transition-colors`;
+  let title;
+  if (router.pathname.includes("user")) title = "User";
+  else if (router.pathname.includes("admin")) title = "Admin";
+  else title = "Data Wow";
   return (
     <>
       <button
@@ -40,30 +44,29 @@ export default function Navbar() {
         } border-r-2 transition-transform lg:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div>
-          <div className="p-6 h-[108px] text-[40px] font-[600] text-black">
-            {router.pathname === "/user" ? "User" : "Admin"}
-          </div>
+          <div className="p-6 h-[108px] text-[40px] font-[600] text-black">{title}</div>
           <div>
             <ul>
-              {router.pathname.includes("admin") && session?.user.role === "admin" && (
-                <>
-                  <li className="p-[8px] h-[84px] ">
-                    <Link href="/admin" className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}>
-                      <Image src={homeIcon} alt="home" />
-                      <span>Home</span>
-                    </Link>
-                  </li>
-                  <li className="p-[8px] h-[84px] ">
-                    <Link
-                      href={router.pathname + "/history"}
-                      className={`${navbarContentCSS} ${router.pathname === "/history" && `bg-[#EAF5F9]`}`}
-                    >
-                      <Image src={historyIcon} alt="history" />
-                      <span>History</span>
-                    </Link>
-                  </li>
-                </>
-              )}
+              <>
+                <li className="p-[8px] h-[84px] ">
+                  <Link
+                    href={`/${router.pathname.includes("admin") ? "admin" : "user"}`}
+                    className={`${navbarContentCSS} ${router.pathname === "/" && `bg-[#EAF5F9]`}`}
+                  >
+                    <Image src={homeIcon} alt="home" />
+                    <span>Home</span>
+                  </Link>
+                </li>
+                <li className="p-[8px] h-[84px] ">
+                  <Link
+                    href={router.pathname + "/history"}
+                    className={`${navbarContentCSS} ${router.pathname === "/history" && `bg-[#EAF5F9]`}`}
+                  >
+                    <Image src={historyIcon} alt="history" />
+                    <span>History</span>
+                  </Link>
+                </li>
+              </>
               {session?.user.role === "admin" && (
                 <li className="p-[8px] h-[84px]">
                   <Link href={router.pathname.includes("user") ? "/admin" : "/user"} className={`${navbarContentCSS}`}>

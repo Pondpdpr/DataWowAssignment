@@ -6,7 +6,7 @@ export default function History(props: any) {
   const [data, setData] = useState<any[]>([]);
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:3001/reservation/log`, {
+    const response = await fetch(`http://localhost:3001/reservation/log${props.isAdmin ? "/admin" : ""}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

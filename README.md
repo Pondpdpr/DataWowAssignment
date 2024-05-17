@@ -1,42 +1,59 @@
-# DataWowAssignment
+# DataWowAssignment-FE
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) Page Router project that was created for Prach Boonud's Data Wow assignment. The project used Nodejs version 20 during its development so try to match the Nodejs version as closely as possible.
 
-## Getting Started
+## Running the application
 
-First, run the development server:
+*You need to run the [backend](https://github.com/Pondpdpr/DataWowAssignment-BE) project first*
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+First, we need to install the dependencies by running:
+
+```
+npm install
+```
+
+Next, after the dependencies are successfully installed, to start the application run:
+```
+npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Included packages:
+### tailwindcss [[doc](https://tailwindcss.com/)]
+  This is a CSS framework that is attached to this project during the creation process of the project via Nextjs project creation CLI. Tailwindcss is used to style the component to match Figma's design.
+### react-hot-toast  [[doc](https://react-hot-toast.com/)]
+  Due to the use of toast in the design, this library is included to lower the development time of toast.
+### NextAuth.js  [[doc](https://next-auth.js.org/)]
+  This package is included to deal with the authentication process of the website, specifically, JWT because my design for this assignment's backend project used JWT to authenticate users.
+  
+## Page structure
+```
+|-- /
+|
+|-- /user
+|   |-- /history
+|
+|-- /admin
+|   |-- /history
+|
+|-- /auth
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Homepage *path('/')*
+This page consists of only the text "Data Wow Assignment" and acts as the landing page for unauthenticated users.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Authpage *path('/auth')*
+This page consists of a login and signup form which is used to authenticate users.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Userpage *path('/user')*
+This page shows all concerts including already full concerts. If the user has already made the reservation for any of the concerts, every other concert is labeled as unavailable.
 
-## Learn More
+### UserHistorypage *path('/user/history')*
+This page shows all of the user's reservation and cancellation logs.
 
-To learn more about Next.js, take a look at the following resources:
+### Adminpage *path('/admin')*
+This page shows all concerts including the stats of all concerts combined. The admin can delete and create a concert on this page.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### AdminHistorypage *path('/user/history')*
+This page shows the reservation and cancellation log of all users.

@@ -9,11 +9,13 @@ import userIcon from "../../../public/user.svg";
 const buttonDisplay = {
   reserved: "Cancel",
   available: "Reserve",
+  unavailable: "Unavailable",
   full: "Full",
 };
 const buttonColor = {
   reserved: "bg-[#F96464] hover:bg-[#fa8383]",
   available: "bg-[#1692EC] hover:bg-[#45a8f0]",
+  unavailable: "bg-[#C2C2C2]",
   full: "bg-[#C2C2C2]",
 };
 
@@ -75,9 +77,10 @@ export default function UserPage() {
         concertId: reservation.concertId,
         id: reservation.id,
       }));
+      const availability = reserved.length > 0 ? "unavailable" : "available";
       setConcert(
         concerts.map((concert: any) => {
-          concert.status = "available";
+          concert.status = availability;
           if (reserved.find((reservation: any) => reservation.concertId === concert.id)) {
             concert.status = "reserved";
             concert.reservation = reserved.find((reservation: any) => reservation.concertId === concert.id).id;
@@ -138,7 +141,7 @@ export default function UserPage() {
                       ? handleReserve(oneConcert.id)
                       : handleCancel(oneConcert.reservation)
                   }
-                  disabled={oneConcert.status === CONCERTSTATUS.FULL}
+                  disabled={oneConcert.status === CONCERTSTATUS.FULL || oneConcert.status === CONCERTSTATUS.UNAVAILABLE}
                 >
                   <span className="text-white text-[16px] sm:text-[24px]">
                     {(buttonDisplay as any)[oneConcert.status]}

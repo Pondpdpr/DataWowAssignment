@@ -59,7 +59,7 @@ export default function UserPage() {
 
   const cancel = async (reservationId: string) => {
     const response = await fetch(`${BACKEND_URL}/reservation/cancel/${reservationId}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + session?.access_token,
